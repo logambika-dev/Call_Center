@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIA — Agent Setup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="agent.css" />
+</head>
+<body>
+
+  <!-- ─── TOP BAR ─── -->
+  <header class="topbar">
+    <a href="index.html" class="top-logo">
+      <div class="top-logo-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="white"/>
+        </svg>
+      </div>
+      <span>VIA</span>
+    </a>
+    <span class="top-label">Agent Configuration</span>
+    <div class="top-status" id="topStatus">
+      <span class="status-dot idle"></span>
+      <span class="status-text">Not configured</span>
+    </div>
+  </header>
+
+  <!-- ─── MAIN ─── -->
+  <main class="main">
+
+    <!-- LEFT: Avatar panel -->
+    <section class="avatar-panel">
+
+      <!-- Pulse rings (visible when ready/active) -->
+      <div class="pulse-rings" id="pulseRings">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+      </div>
+
+      <!-- Avatar shell -->
+      <div class="avatar-shell" id="avatarShell">
+
+        <!-- Spinning connector ring (visible when connecting) -->
+        <div class="connector-ring" id="connectorRing"></div>
+
+        <!-- The avatar circle -->
+        <div class="avatar-circle" id="avatarCircle">
+
+          <!-- Liquid fill layer -->
+          <div class="fill-layer" id="fillLayer"></div>
+
+          <!-- Ripple overlay on active -->
+          <div class="avatar-ripple" id="avatarRipple"></div>
+
+          <!-- Avatar content: initials / icon -->
+          <div class="avatar-content">
+            <div class="avatar-initials" id="avatarInitials">
+              <!-- microphone icon (default) -->
+              <svg class="avatar-icon" id="avatarIcon" viewBox="0 0 24 24" fill="none">
+                <path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z" fill="currentColor" opacity="0.9"/>
+                <path d="M19 11a7 7 0 0 1-14 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.7"/>
+                <line x1="12" y1="18" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                <line x1="8" y1="22" x2="16" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+              </svg>
+              <span class="initials-text" id="initialsText"></span>
+            </div>
+
+            <!-- Speaking bars (visible during active call) -->
+            <div class="speak-bars" id="speakBars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Live badge -->
+        <div class="live-badge" id="liveBadge">
+          <span class="live-dot"></span> LIVE
+        </div>
+
+      </div>
+
+      <!-- Avatar status text -->
+      <p class="avatar-status" id="avatarStatus">Configure your agent below</p>
+
+      <!-- Fill progress indicators -->
+      <div class="fill-indicators">
+        <div class="fill-dot" id="dot1" title="Agent Name"></div>
+        <div class="fill-dot" id="dot2" title="System Prompt"></div>
+        <div class="fill-dot" id="dot3" title="First Message"></div>
+      </div>
+
+      <!-- Call timer (visible during live call) -->
+      <div class="call-timer" id="callTimer">
+        <span class="timer-icon">📞</span>
+        <span id="timerDisplay">00:00</span>
+      </div>
+
+    </section>
+
+    <!-- RIGHT: Form panel -->
+    <section class="form-panel">
+      <div class="form-card">
+        <h2 class="form-title">Set up your AI agent</h2>
+        <p class="form-desc">Fill in all three fields to activate your agent and place a call.</p>
+
+        <!-- Agent Name -->
+        <div class="field-group" id="fg1">
+          <label class="field-label">
+            <span class="label-icon">✦</span>
+            Agent Name
+          </label>
+          <input
+            type="text"
+            id="agentName"
+            class="field-input"
+            placeholder="e.g. Aria, Nova, Support Bot…"
+            autocomplete="off"
+          />
+          <span class="field-hint">Give your agent a personality name</span>
+        </div>
+
+        <!-- System Prompt -->
+        <div class="field-group" id="fg2">
+          <label class="field-label">
+            <span class="label-icon">✦</span>
+            System Prompt
+          </label>
+          <textarea
+            id="systemPrompt"
+            class="field-input field-textarea"
+            placeholder="You are a professional support agent for VIA. Be friendly, concise, and always offer a solution…"
+            rows="4"
+          ></textarea>
+          <span class="field-hint">Instructions that define your agent's behaviour</span>
+        </div>
+
+        <!-- First Message -->
+        <div class="field-group" id="fg3">
+          <label class="field-label">
+            <span class="label-icon">✦</span>
+            First Message
+          </label>
+          <input
+            type="text"
+            id="firstMessage"
+            class="field-input"
+            placeholder="Hello! This is Aria from VIA support. How can I help you today?"
+            autocomplete="off"
+          />
+          <span class="field-hint">The opening line your agent will say</span>
+        </div>
+
+        <!-- Divider -->
+        <div class="form-divider">
+          <span>Connect &amp; Call</span>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="field-group" id="fg4">
+          <label class="field-label">
+            <span class="label-icon">📞</span>
+            Phone Number
+          </label>
+          <div class="phone-row">
+            <select class="field-input country-code" id="countryCode">
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+81">🇯🇵 +81</option>
+              <option value="+86">🇨🇳 +86</option>
+            </select>
+            <input
+              type="tel"
+              id="phoneNumber"
+              class="field-input phone-input"
+              placeholder="(555) 000-1234"
+              autocomplete="tel"
+            />
+          </div>
+          <span class="field-hint">Number to connect the AI agent to</span>
+        </div>
+
+        <!-- Call button -->
+        <button class="call-btn" id="callBtn" disabled>
+          <span class="call-btn-icon" id="callBtnIcon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+            </svg>
+          </span>
+          <span class="call-btn-label" id="callBtnLabel">Activate agent to call</span>
+          <span class="call-btn-shimmer"></span>
+        </button>
+
+        <!-- End call button (hidden initially) -->
+        <button class="end-btn" id="endBtn" style="display:none">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08a.996.996 0 0 1-.01-1.41C3.1 8.83 7.35 7 12 7s8.9 1.83 11.72 4.67c.39.39.39 1.02-.01 1.41l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.1-.7-.28a11.27 11.27 0 0 0-2.67-1.85c-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/>
+          </svg>
+          End Call
+        </button>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── CONNECTING OVERLAY ─── -->
+  <div class="connect-overlay" id="connectOverlay">
+    <div class="connect-card">
+      <div class="connect-avatar-mini" id="connectAvatarMini"></div>
+      <h3 id="connectTitle">Connecting agent…</h3>
+      <p id="connectSub">Initialising AI voice engine</p>
+      <div class="connect-steps">
+        <div class="c-step" id="cs1"><span class="c-step-icon">⚙️</span> Configuring agent</div>
+        <div class="c-step" id="cs2"><span class="c-step-icon">🔊</span> Loading voice model</div>
+        <div class="c-step" id="cs3"><span class="c-step-icon">📡</span> Establishing connection</div>
+        <div class="c-step" id="cs4"><span class="c-step-icon">📞</span> Dialling number</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="agent.js"></script>
+</body>
+</html>
